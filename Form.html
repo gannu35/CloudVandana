@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Survey Form</title>
+  <style>
+    /* Add your CSS styles here to match the reference image */
+  </style>
+</head>
+<body>
+  <form id="survey-form" onsubmit="return false;">
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" required><br>
+
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" required><br>
+
+    <label for="date-of-birth">Date of Birth:</label>
+    <input type="date" id="date-of-birth" required><br>
+
+    <label for="country">Country:</label>
+    <select id="country" required>
+      <option value="">Select a country</option>
+      <!-- Add your country options here -->
+    </select><br>
+
+    <label>Gender:</label>
+    <label><input type="checkbox" name="gender" value="male"> Male</label>
+    <label><input type="checkbox" name="gender" value="female"> Female</label>
+    <label><input type="checkbox" name="gender" value="other"> Other</label><br>
+
+    <label for="profession">Profession:</label>
+    <input type="text" id="profession" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br>
+
+    <label for="mobile-number">Mobile Number:</label>
+    <input type="tel" id="mobile-number" required><br>
+
+    <button onclick="submitForm()">Submit</button>
+    <button type="reset" id="reset-button">Reset</button>
+  </form>
+
+  <div id="popup" style="display: none;">
+    <h2>Survey Submission Details</h2>
+    <div id="popup-content"></div>
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <script>
+    function submitForm() {
+      // Gather form values
+      var firstName = document.getElementById("first-name").value;
+      var lastName = document.getElementById("last-name").value;
+      var dob = document.getElementById("date-of-birth").value;
+      var country = document.getElementById("country").value;
+      var genderCheckboxes = document.querySelectorAll('input[name="gender"]:checked');
+      var profession = document.getElementById("profession").value;
+      var email = document.getElementById("email").value;
+      var mobileNumber = document.getElementById("mobile-number").value;
+
+      // Prepare content for the popup
+      var popupContent = `
+        <p><strong>First Name:</strong> ${firstName}</p>
+        <p><strong>Last Name:</strong> ${lastName}</p>
+        <p><strong>Date of Birth:</strong> ${dob}</p>
+        <p><strong>Country:</strong> ${country}</p>
+        <p><strong>Gender:</strong> ${Array.from(genderCheckboxes, el => el.value).join(", ")}</p>
+        <p><strong>Profession:</strong> ${profession}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mobile Number:</strong> ${mobileNumber}</p>
+      `;
+
+      // Display the popup
+      document.getElementById("popup-content").innerHTML = popupContent;
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+      // Close the popup and reset the form
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("survey-form").reset();
+    }
+  </script>
+</body>
+</html>
